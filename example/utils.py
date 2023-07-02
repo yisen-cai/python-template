@@ -3,4 +3,5 @@ import logging
 logger = logging.getLogger(__name__)
 
 def hello():
-    logger.debug("hello world")
+    if logger.isEnabledFor(logging.DEBUG):
+        logger.debug("hello world")

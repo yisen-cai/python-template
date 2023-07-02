@@ -1,23 +1,17 @@
-from custom import CustomFormatter
-from example.utils import hello
-import logging
-
+import argparse
 import logging.config
-
+from example.utils import hello
 
 logging.config.fileConfig('logging.conf', disable_existing_loggers=False)
 
-
 # module-level logger
 logger = logging.getLogger(__name__)
-
-# ch = logging.StreamHandler()
-# ch.setFormatter(CustomFormatter())
-# logger.addHandler(ch)
-
-# set logger level
-# logger.setLevel(logging.INFO)
-
+logger.setLevel(logging.DEBUG)
+parser = argparse.ArgumentParser()
+parser.add_argument("-log", "--log", nargs='+', help="Provide logging level. Example --log debug'")
+log_level = parser.parse_args().log
+log_level = log_level[0] if len(log_level) > 0 else logging.INFO
+logger.setLevel(log_level)
 
 if __name__ == '__main__':
     logger.info("info log")
@@ -25,7 +19,5 @@ if __name__ == '__main__':
     logger.warning("warning log")
     logger.critical("critical log")
     hello()
-    # still output
-    logger.debug("debug log")
     if logger.isEnabledFor(logging.DEBUG):
         logger.debug("debug log")
