@@ -5,53 +5,78 @@
 ## Configs
 
 ~~~conf
-# loggers
+# -------------------------------------------- Logger collection ------------------------------------------------------
 [loggers]
 keys=root
 
 [logger_root]
-level=DEBUG
-handlers=consoleHandler,infoHandler
+handlers=consoleHandler,debugHandler,infoHandler,errorHandler
 
 
-# define what kind output it does, file, log level, console output etc.
+
+# -------------------------------------------- Handler collection -----------------------------------------------------
 [handlers]
-[handlers]
-keys=consoleHandler,infoHandler
+keys=consoleHandler,infoHandler,errorHandler,debugHandler
+
 # console handler
 [handler_consoleHandler]
 class=StreamHandler
-formatter=simpleFormatter
+formatter=consoleFormatter
 args=(sys.stdout,)
 
 # file handler
 [handler_infoHandler]
-level=INFO
+class=handlers.RotatingFileHandler
+formatter=simpleFormatter
+interval=midnight
+backupCount=2
+args=('logs/info.log','a', 5*1024*1024, 2, 'utf-8')
+
+
+[handler_debugHandler]
+level=DEBUG
+class=handlers.RotatingFileHandler
+formatter=simpleFormatter
+interval=midnight
+backupCount=2
+args=('logs/debug.log','a', 5*1024*1024, 2, 'utf-8')
+
+
+# file handler
+[handler_errorHandler]
+level=ERROR
 # class=handlers.TimedRotatingFileHandler
 class=handlers.RotatingFileHandler
 formatter=simpleFormatter
 interval=midnight
-backupCount=5
-args=('logs/info.log','a')
+backupCount=2
+args=('logs/error.log','a', 5*1024*1024, 2, 'utf-8')
 
 
-# setting the output log format
+
+# ------------------------------------------- Formatter collection ----------------------------------------------------
 [formatters]
-keys=simpleFormatter
+keys=simpleFormatter,cleanFormatter,consoleFormatter
 
-# log pattern define, the number after double bracket is the format length
+
 [formatter_simpleFormatter]
-format=%(asctime)s %(name)20s %(levelname)8s: %(message)s
+format=%(asctime)s %(levelname)8s ---- %(filename)6s:%(lineno)s %(message)s
+
+[formatter_consoleFormatter]
+format=%(asctime)s %(levelname)8s ---- %(filename)6s:%(lineno)s %(message)s
 
 
+# log pattern define
+[formatter_cleanFormatter]
+format=%(message)s
+~~~
+
+~~~bash
 # shows like
-2022-11-12 13:16:11,553             __main__     INFO: info log
-2022-11-12 13:16:11,554             __main__    ERROR: error log
-2022-11-12 13:16:11,555             __main__  WARNING: warning log
-2022-11-12 13:16:11,555             __main__ CRITICAL: critical log
-2022-11-12 13:16:11,556        example.utils    DEBUG: hello world
-2022-11-12 13:16:11,556             __main__    DEBUG: debug log
-2022-11-12 13:16:11,557             __main__    DEBUG: debug log
+2023-07-06 15:34:22,329     INFO ---- main.py:18 info log
+2023-07-06 15:34:22,330    ERROR ---- main.py:19 error log
+2023-07-06 15:34:22,330  WARNING ---- main.py:20 warning log
+2023-07-06 15:34:22,330 CRITICAL ---- main.py:21 critical log
 ~~~
 
 
