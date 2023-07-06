@@ -12,7 +12,6 @@ log_level = parser.parse_args().log
 log_level = log_level[0] if log_level is not None and len(log_level) > 0 else logging.INFO
 logger.setLevel(log_level)
 
-logger = logging.getLogger(__name__)
 
 if __name__ == '__main__':
     logger.info("info log")
