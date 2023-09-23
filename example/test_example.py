@@ -2,6 +2,7 @@ import unittest
 
 import logging
 from logging import config
+from utils import walks_dir
 
 logging.config.fileConfig(
     'logging.conf', disable_existing_loggers=False)
@@ -71,6 +72,9 @@ class MyTestCase(unittest.TestCase):
         for i in range(0, 6):
             with self.subTest(i=i):
                 self.assertEqual(i % 2, 0)
+
+    def test_walks(self):
+        walks_dir("/Volumes/133xxxx9759/Destination")
 
 
 if __name__ == '__main__':

@@ -19,5 +19,8 @@ if __name__ == '__main__':
     logger.warning("warning log")
     logger.critical("critical log")
     hello()
+
     if logger.isEnabledFor(logging.DEBUG):
         logger.debug("debug log")
+
+
