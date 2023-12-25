@@ -1,6 +1,5 @@
-import argparse
 import logging.config
-from example.utils import hello
+
 from spiders.portal import Portal
 
 # module-level logger
@@ -9,5 +8,5 @@ logging.config.fileConfig(
 logger = logging.getLogger(__name__)
 
 if __name__ == '__main__':
-    portal = Portal()
-    portal.run()
+    Portal().run()
+

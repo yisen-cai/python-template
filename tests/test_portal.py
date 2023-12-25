@@ -1,4 +1,10 @@
+import logging.config
 from spiders.portal import Portal
+
+# module-level logger
+logging.config.fileConfig(
+    'logging.conf', disable_existing_loggers=False)
+logger = logging.getLogger(__name__)
 
 
 class Test:
@@ -20,3 +26,7 @@ class Test:
         pass
         # detail = self.portal.get_app_details("f_twell_domestic")
         # self.portal.write_to_db([detail])
+
+    def test_query_app_infos(self):
+        app_codes = self.portal.query_app_codes()
+        assert len(app_codes) > 0
