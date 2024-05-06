@@ -1,7 +1,9 @@
+import unittest
+
 from fluent_python.control_flow import Sentence, LazySentence
 
 
-class TestControlFlow:
+class TestControlFlow(unittest.TestCase):
     sentence = Sentence("word1 word2")
     lazy_sentence = LazySentence("word1 word2")
 

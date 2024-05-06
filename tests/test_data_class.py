@@ -1,10 +1,11 @@
 import json
 import typing
+import unittest
 
 from fluent_python.data_class import Coordinate, Coordinate1, Coordinate2, Coordinate3, City
 
 
-class Test:
+class Test(unittest.TestCase):
 
     def test_coordinate(self):
         moscow = Coordinate(55.76, 37.62)

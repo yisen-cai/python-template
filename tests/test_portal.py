@@ -1,4 +1,6 @@
 import logging.config
+import unittest
+
 from spiders.portal import Portal
 
 # module-level logger
@@ -7,7 +9,7 @@ logging.config.fileConfig(
 logger = logging.getLogger(__name__)
 
 
-class Test:
+class Test(unittest.TestCase):
     portal = Portal()
 
     def test_run(self):
